@@ -2,7 +2,7 @@ import { INodeExecutionData, INodeType, INodeTypeDescription, IExecuteFunctions,
 import { NodeApiError } from 'n8n-workflow';
 
 
-export class TacticalRMMAgentsApi implements INodeType {
+export class TacticalRmmAgents implements INodeType {
     description: INodeTypeDescription = {
         displayName: 'Tactical RMM Agents',
         name: 'tacticalRmmAgents',

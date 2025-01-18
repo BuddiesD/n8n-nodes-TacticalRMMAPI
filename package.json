@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-tactical-rmm-api",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "n8n nodes for interacting with Tactical RMM API",
   "keywords": [
     "n8n-community-node-package",
@@ -42,8 +42,8 @@
       "dist/credentials/TacticalRMMAPICredentials.credentials.js"
     ],
     "nodes": [
-      "dist/nodes/TacticalRMMAgents/TacticalRMMAgents.node.js",
-      "dist/nodes/TacticalRMMAlerts/TacticalRMMAlerts.node.js"
+      "dist/nodes/TacticalRMMAgents/TacticalRmmAgents.node.js",
+      "dist/nodes/TacticalRMMAlerts/TacticalRmmAlerts.node.js"
     ]
   },
   "devDependencies": {
