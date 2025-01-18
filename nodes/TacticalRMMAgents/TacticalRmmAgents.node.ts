@@ -1,9 +1,11 @@
 import { INodeExecutionData, INodeType, INodeTypeDescription, IExecuteFunctions, IHttpRequestMethods } from 'n8n-workflow';
+import { NodeApiError } from 'n8n-workflow';
 
-export class TacticalRMMAgents implements INodeType {
+
+export class TacticalRMMAgentsApi implements INodeType {
     description: INodeTypeDescription = {
         displayName: 'Tactical RMM Agents',
-        name: 'tacticalRMMAgents',
+        name: 'tacticalRmmAgents',
         icon: 'file:trmm.svg',
         group: ['transform'],
         version: 1,
@@ -15,7 +17,7 @@ export class TacticalRMMAgents implements INodeType {
         outputs: ['main'],
         credentials: [
             {
-                name: 'tacticalRMMAPICredentials',
+                name: 'tacticalRMMAPICredentialsApi',
                 required: true,
             },
         ],
@@ -24,24 +26,25 @@ export class TacticalRMMAgents implements INodeType {
                 displayName: 'Operation',
                 name: 'operation',
                 type: 'options',
-                options: [
-                    { name: 'Get All Agents', value: 'getAllAgents' },
-                    { name: 'Get Agent by ID', value: 'getAgentById' },
-                    { name: 'Update Agent', value: 'updateAgent' },
-                    { name: 'Delete Agent', value: 'deleteAgent' },
-                    { name: 'Get Agent Checks', value: 'getAgentChecks' },
-                    { name: 'Post Agent Check', value: 'postAgentCheck' },
-                    { name: 'Post Command to Agent', value: 'postAgentCommand' },
-                    { name: 'Get Event Logs', value: 'getAgentEventLogs' },
-                    { name: 'Reboot Agent', value: 'rebootAgent' },
-                    { name: 'Patch Reboot Agent', value: 'patchRebootAgent' },
-                    { name: 'Recover Agent', value: 'recoverAgent' },
-                    { name: 'Run Script on Agent', value: 'runScriptOnAgent' },
-                    { name: 'Get Agent History', value: 'getAgentHistory' },
-                    { name: 'Get Tasks', value: 'getAgentTasks' },
-                    { name: 'Post Task', value: 'postAgentTask' },
-                    { name: 'Get Pending Actions', value: 'getPendingActions' },
-                    { name: 'Delete Pending Actions', value: 'deletePendingActions' },
+								noDataExpression: true,
+								options: [
+									{ name: 'Delete Agent', value: 'deleteAgent' },
+									{ name: 'Delete Pending Actions', value: 'deletePendingActions' },
+									{ name: 'Get Agent by ID', value: 'getAgentById' },
+									{ name: 'Get Agent Checks', value: 'getAgentChecks' },
+									{ name: 'Get Agent History', value: 'getAgentHistory' },
+									{ name: 'Get All Agents', value: 'getAllAgents' },
+									{ name: 'Get Event Logs', value: 'getEventLogs' },
+									{ name: 'Get Pending Actions', value: 'getPendingActions' },
+									{ name: 'Get Tasks', value: 'getTasks' },
+									{ name: 'Patch Reboot Agent', value: 'patchRebootAgent' },
+									{ name: 'Post Agent Check', value: 'postAgentCheck' },
+									{ name: 'Post Command to Agent', value: 'postCommandToAgent' },
+									{ name: 'Post Task', value: 'postTask' },
+									{ name: 'Reboot Agent', value: 'rebootAgent' },
+									{ name: 'Recover Agent', value: 'recoverAgent' },
+									{ name: 'Run Script on Agent', value: 'runScriptOnAgent' },
+									{ name: 'Update Agent', value: 'updateAgent' },
                 ],
                 default: 'getAllAgents',
             },
@@ -201,10 +204,10 @@ export class TacticalRMMAgents implements INodeType {
         }
 
         try {
-            responseData = await this.helpers.request(options);
-        } catch (error) {
-            throw new Error(`Error calling Tactical RMM Agents API: ${error.message}`);
-        }
+					responseData = await this.helpers.request(options);
+			} catch (error) {
+					throw new NodeApiError(this.getNode(), error);
+			}
 
         return [this.helpers.returnJsonArray(responseData)];
     }

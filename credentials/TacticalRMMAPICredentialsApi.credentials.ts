@@ -1,9 +1,9 @@
 import { ICredentialType, INodeProperties } from 'n8n-workflow';
 
-export class TacticalRMMAPICredentials implements ICredentialType {
-    name = 'tacticalRMMAPICredentials';
-    displayName = 'Tactical RMM API Credentials';
-    documentationUrl = '';
+export class TacticalRMMAPICredentialsApi implements ICredentialType {
+
+    name = 'tacticalRMMAPICredentialsApi';
+    displayName = 'Tactical RMM API Credentials - API';
     properties: INodeProperties[] = [
         {
             displayName: 'Base URL',
@@ -14,7 +14,8 @@ export class TacticalRMMAPICredentials implements ICredentialType {
             description: 'The base URL of the Tactical RMM API',
         },
         {
-            displayName: 'API Key',
+					displayName: 'Tactical RMM API Key',
+
             name: 'apiKey',
             type: 'string',
             typeOptions: {

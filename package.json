@@ -1,5 +1,5 @@
 {
-  "name": "n8n-nodes-TacticalRMMAPI",
+  "name": "n8n-nodes-tactical-rmm-api",
   "version": "0.1.0",
   "description": "n8n nodes for interacting with Tactical RMM API",
   "keywords": [

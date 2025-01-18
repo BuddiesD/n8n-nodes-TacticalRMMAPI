@@ -1,9 +1,11 @@
 import { INodeExecutionData, INodeType, INodeTypeDescription, IExecuteFunctions, IHttpRequestMethods } from 'n8n-workflow';
+import { NodeApiError } from 'n8n-workflow';
 
-export class TacticalRMMAlerts implements INodeType {
+
+export class TacticalRMMAlertsApi implements INodeType {
     description: INodeTypeDescription = {
         displayName: 'Tactical RMM Alerts',
-        name: 'tacticalRMMAlerts',
+        name: 'tacticalRmmAlerts',
         icon: 'file:trmm.svg',
         group: ['transform'],
         version: 1,
@@ -15,7 +17,7 @@ export class TacticalRMMAlerts implements INodeType {
         outputs: ['main'],
         credentials: [
             {
-                name: 'tacticalRMMAPICredentials',
+                name: 'tacticalRMMAPICredentialsApi',
                 required: true,
             },
         ],
@@ -24,19 +26,20 @@ export class TacticalRMMAlerts implements INodeType {
                 displayName: 'Operation',
                 name: 'operation',
                 type: 'options',
-                options: [
-                    { name: 'Create Alert', value: 'createAlert' },
-                    { name: 'Get Alert by ID', value: 'getAlertById' },
-                    { name: 'Update Alert', value: 'updateAlert' },
-                    { name: 'Delete Alert', value: 'deleteAlert' },
-                    { name: 'Patch Alerts', value: 'patchAlerts' },
-                    { name: 'Bulk Alerts', value: 'bulkAlerts' },
-                    { name: 'Get Templates', value: 'getTemplates' },
-                    { name: 'Create Template', value: 'createTemplate' },
-                    { name: 'Get Template by ID', value: 'getTemplateById' },
-                    { name: 'Update Template', value: 'updateTemplate' },
-                    { name: 'Delete Template', value: 'deleteTemplate' },
-                    { name: 'Get Related Templates', value: 'getRelatedTemplates' },
+								noDataExpression: true,
+								options: [
+									{ name: 'Bulk Alerts', value: 'bulkAlerts' },
+									{ name: 'Create Alert', value: 'createAlert' },
+									{ name: 'Create Template', value: 'createTemplate' },
+									{ name: 'Delete Alert', value: 'deleteAlert' },
+									{ name: 'Delete Template', value: 'deleteTemplate' },
+									{ name: 'Get Alert by ID', value: 'getAlertById' },
+									{ name: 'Get Related Templates', value: 'getRelatedTemplates' },
+									{ name: 'Get Template by ID', value: 'getTemplateById' },
+									{ name: 'Get Templates', value: 'getTemplates' },
+									{ name: 'Patch Alerts', value: 'patchAlerts' },
+									{ name: 'Update Alert', value: 'updateAlert' },
+									{ name: 'Update Template', value: 'updateTemplate' },
                 ],
                 default: 'createAlert',
             },
@@ -149,10 +152,10 @@ export class TacticalRMMAlerts implements INodeType {
         }
 
         try {
-            responseData = await this.helpers.request(options);
-        } catch (error) {
-            throw new Error(`Error calling Tactical RMM Alerts API: ${error.message}`);
-        }
+									responseData = await this.helpers.request(options);
+							} catch (error) {
+									throw new NodeApiError(this.getNode(), error);
+							}
 
         return [this.helpers.returnJsonArray(responseData)];
     }
