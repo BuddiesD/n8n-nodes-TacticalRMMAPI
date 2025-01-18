@@ -72,7 +72,7 @@ export class TacticalRmmAlerts implements INodeType {
 
     async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
         const operation = this.getNodeParameter('operation', 0) as string;
-        const credentials = await this.getCredentials('tacticalRMMAPICredentials');
+        const credentials = await this.getCredentials('tacticalRMMAPICredentialsApi');
         const baseUrl = credentials.baseUrl as string;
         let responseData;
 
